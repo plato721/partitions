@@ -9,25 +9,28 @@ class Partition
     4 => 5
   }
 
-  def nth(n)
+  def partitions(n)
     return @@partitions[n] if n < 5
 
     @@partitions[n] ||= begin
-      p = Pentagonal.new
-
       i = 1
-      partitions = 0
+      total = 0
 
       loop do
-        pentagonal = p.nth(i)
+        pentagonal = euler_pentagonal(i)
         break if n - pentagonal < 0
 
-        next_term = self.nth(n - pentagonal)
-        partitions = partitions.send(next_sign(i), next_term)
+        next_term = self.partitions(n - pentagonal)
+        total = total.send(next_sign(i), next_term)
         i += 1
       end
-      partitions
+      total
     end
+  end
+
+  def euler_pentagonal(n)
+    i = (n + 1)/2
+    n.even? ? (3 * i**2 + i) / 2 : (3 * i**2 - i) / 2
   end
 
   def next_sign(i)
