@@ -32,5 +32,16 @@ RSpec.describe Partition do
       result = [*0..9].map { |i| @p.partitions(i) }
       expect(result).to eql([1, 1, 2, 3, 5, 7, 11, 15, 22, 30])
     end
+
+    it "finds a larger one" do
+      expect(@p.partitions(269)).to eql(974834369944625)
+    end
+  end
+
+  context "#next_sign" do
+    it "alternates 2 adds then 2 subtracts ad infinitum" do
+      result = [*1..10].map { |i| @p.next_sign(i) }
+      expect(result).to eql([:+, :+, :-, :-, :+, :+, :-, :-, :+, :+])
+    end
   end
 end
