@@ -1,5 +1,3 @@
-require './lib/pentagonal.rb'
-
 class Partition
   @@partitions = {
     0 => 1,
@@ -20,7 +18,7 @@ class Partition
         pentagonal = euler_pentagonal(i)
         break if n - pentagonal < 0
 
-        next_term = self.partitions(n - pentagonal)
+        next_term = partitions(n - pentagonal)
         total = total.send(next_sign(i), next_term)
         i += 1
       end
@@ -29,11 +27,11 @@ class Partition
   end
 
   def euler_pentagonal(n)
-    i = (n + 1)/2
+    i = (n + 1) / 2
     n.even? ? (3 * i**2 + i) / 2 : (3 * i**2 - i) / 2
   end
 
   def next_sign(i)
-    ((i +1)/2).even? ? :- : :+
+    ((i + 1) / 2).even? ? :- : :+
   end
 end
